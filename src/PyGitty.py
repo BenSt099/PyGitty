@@ -1,10 +1,19 @@
 import argparse
+import os
+import json
 
 def printVersion():
     print("PyGitty - V1.0.0")
 
 def checkStatus():
     print("PiGitty - Status")
+
+def initRepo():
+    writeToJSONConfigFile(os.getcwd())
+    
+def writeToJSONConfigFile(input):
+    with open("pygittyconfig.json", "w+") as outfile:
+        json.dump(input, outfile)
 
 def inputArgs():
     parser = argparse.ArgumentParser()
