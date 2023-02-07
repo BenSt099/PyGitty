@@ -3,8 +3,14 @@ import os
 dictFiles = {}
 
 def getAllFilesInFolder(folderName):
-    obj = os.scandir(folderName)
-    for ob in obj:
-        if ob.is_file:
-            dictFiles[ob.name] = ob.path
+    
+    analyseFolders(folderName)
     return dictFiles
+    
+def analyseFolders(folderName):
+    for entry in os.scandir(folderName):
+        if entry.is_file():
+            dictFiles[entry.name] = entry.path
+            yield entry.name
+        elif entry.is_dir() and entry.name != ".git":
+            yield from getAllFilesInFolder(entry.path)
