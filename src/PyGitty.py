@@ -4,6 +4,9 @@ import sys
 import json
 from pathlib import Path
 from FileSystemScanner import get_files_with_path
+from colorama import init as colorama_init
+from colorama import deinit
+from colorama import Fore, Style
 
 def printVersion():
     print("◯‍◯‍◯‍ PyGitty - V1.2.0")
@@ -20,7 +23,7 @@ def commitToRepo():
 
 def checkStatus():
     print("🔶 PiGitty - Status")
-   
+    colorama_init()
     files_dict = get_files_with_path(Path(os.getcwd()).parent.absolute()) # all files in repository
     
     data = readFromJSONConfigFile()
@@ -28,7 +31,9 @@ def checkStatus():
         for d in data:
             if files == d:
                 if data[d] != os.path.getmtime(files_dict[files]):
-                    print(files)
+                    print(Fore.RED + files)
+    print(Style.RESET_ALL)
+    deinit()
 
 
 def initRepo():
@@ -43,7 +48,6 @@ def initRepo():
         print("✅ Initialisation Successful")
     else:
         print("❌ Not A PyGitty Repository")
-
 
 def isRepoInRightCondition():
     if os.getcwd().endswith(".pygitty"):
@@ -61,7 +65,6 @@ def readFromJSONConfigFile():
 
 def updateTimeStampInJSON():
     writeToJSONConfigFile("-") # FIX ME
-
 
 def inputArgs():
     parser = argparse.ArgumentParser()

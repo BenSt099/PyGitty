@@ -10,6 +10,10 @@ Simulating Git with a small python script.
 
     > Additional Features planned
 
+## Requirements
+
+- Python library `colorama` [ [Installation](https://pypi.org/project/colorama/) ]
+
 ## Getting Started
 
 - Create a directory named `.pygitty` in the directory that should be a pygitty repository.
