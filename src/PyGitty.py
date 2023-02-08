@@ -6,7 +6,7 @@ from pathlib import Path
 from FileSystemScanner import get_files_with_path
 
 def printVersion():
-    print("◯‍◯‍◯‍ PyGitty - V1.1.0")
+    print("◯‍◯‍◯‍ PyGitty - V1.2.0")
 
 def addToCommit():
     print()
@@ -22,17 +22,13 @@ def checkStatus():
     print("🔶 PiGitty - Status")
    
     files_dict = get_files_with_path(Path(os.getcwd()).parent.absolute()) # all files in repository
-    #print(files_dict)
-    for files in files_dict:
-        os.path.getmtime(files_dict[files])
-
-    #if not os.path.exists(os.path.join(os.getcwd(),"pygittyconfig")):
-    #    print("The following files were modified")
-
+    
     data = readFromJSONConfigFile()
-    #for d in data:
-
-
+    for files in files_dict:
+        for d in data:
+            if files == d:
+                if data[d] != os.path.getmtime(files_dict[files]):
+                    print(files)
 
 
 def initRepo():
