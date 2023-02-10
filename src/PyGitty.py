@@ -22,10 +22,6 @@ def addToCommit(filename):
         json.dump(dictTemp, outfile, indent=4)
 
 def commitToRepo():    
-    #dictInfo = {}
-    #files_dict = get_files_with_path(Path(os.getcwd()).parent.absolute()) # all files in repository: key (filename), value (path)
-    #for f in files_dict:
-    #    dictInfo[f] = os.path.getmtime(files_dict[f])
     files_dictTemp = readFromJSONTempFile()
     files_dictConfig = readFromJSONConfigFile()
 
@@ -37,7 +33,6 @@ def commitToRepo():
     writeToJSONConfigFile(files_dictConfig)   
     writeToJSONTempFile() 
     
-
 def checkStatus():
     print("🔶 PiGitty - Status")
     colorama_init()
@@ -49,7 +44,6 @@ def checkStatus():
         for d in data:
             if files == d:
                 if data[d] != os.path.getmtime(files_dict[files]):
-                    #print(Fore.RED + files)
                     filesStatusRed.append(files)
 
     temp_data = readFromJSONTempFile()
@@ -113,9 +107,6 @@ def readFromJSONTempFile():
     with open("pygittytemp.json", "r") as out:
         data = json.load(out)
     return data
-
-def updateTimeStampInJSON():
-    writeToJSONConfigFile("-") # FIX ME
 
 def inputArgs():
     parser = argparse.ArgumentParser()
