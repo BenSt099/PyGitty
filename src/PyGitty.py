@@ -9,23 +9,17 @@ from colorama import deinit
 from colorama import Fore, Style
 
 def printVersion():
-    print("◯‍◯‍◯‍ PyGitty - V1.3.0")
+    print("◯‍◯‍◯‍ PyGitty - V1.2.0")
 
 def addToCommit(filename):
-    path_To_JSON = os.path.join(os.getcwd(),"pygittytemp.json")
     dictTemp = {}
-
-    if not os.path.exists(path_To_JSON):
-        with open(path_To_JSON, 'w') as json_file:
-            json.dump({}, json_file)
-    else:
-        print()
-        files_dict = get_files_with_path(Path(os.getcwd()).parent.absolute())
-        for f in files_dict:    
-            if f == filename:
-                dictTemp[f] = files_dict[f]
-        with open("pygittytemp.json", "w+") as outfile:
-            json.dump(dictTemp, outfile, indent=4)
+    print()
+    files_dict = get_files_with_path(Path(os.getcwd()).parent.absolute())
+    for f in files_dict:    
+        if f == filename:
+            dictTemp[f] = files_dict[f]
+    with open("pygittytemp.json", "w+") as outfile:
+        json.dump(dictTemp, outfile, indent=4)
 
 def commitToRepo():    
     #dictInfo = {}
@@ -86,6 +80,12 @@ def initRepo():
         if not os.path.exists(path_To_JSON):
             with open(path_To_JSON, 'w') as json_file:
                 json.dump({}, json_file)
+
+        path_To_JSON = os.path.join(os.getcwd(),"pygittytemp.json")
+
+        if not os.path.exists(path_To_JSON):
+            with open(path_To_JSON, 'w') as json_file:
+                json.dump({}, json_file)
     
         print("✅ Initialisation Successful")
     else:
@@ -113,6 +113,9 @@ def readFromJSONTempFile():
     with open("pygittytemp.json", "r") as out:
         data = json.load(out)
     return data
+
+def updateTimeStampInJSON():
+    writeToJSONConfigFile("-") # FIX ME
 
 def inputArgs():
     parser = argparse.ArgumentParser()
